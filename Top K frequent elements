@@ -1,0 +1,26 @@
+import java.util.*;
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer,Integer> frequency = new HashMap<>();
+        List<Integer> [] buckets = new List[nums.length+1];
+        for (int n: nums)
+            frequency.put(n,frequency.getOrDefault(n,0)+1);
+        for(int keys:frequency.keySet()){
+            int freq = frequency.get(keys);
+            if(buckets[freq]==null)
+                buckets[freq]=new ArrayList<>();
+            buckets[freq].add(keys);
+        }
+
+        int[] result = new int[k];
+        int count = 0;
+        for(int i=buckets.length-1;i>=0&&count<k;i--){
+            if(buckets[i]!=null){
+                for(int num:buckets[i])
+                    result[count++]=num;
+            }
+
+        }
+        return result;
+    }
+}
